@@ -1,0 +1,1 @@
+package com.CIMthetics.jVma.Structures.CreateInfos;
