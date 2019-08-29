@@ -5,10 +5,15 @@ import java.util.EnumSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.CIMthetics.jVma.Handles.MappedData;
 import com.CIMthetics.jVma.Handles.VmaAllocation;
 import com.CIMthetics.jVma.Handles.VmaAllocator;
+import com.CIMthetics.jVma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jVma.Handles.VmaPool;
 import com.CIMthetics.jVma.Structures.VmaAllocationInfo;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationInfo;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationInfo2;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationStats;
 import com.CIMthetics.jVma.Structures.VmaPoolStats;
 import com.CIMthetics.jVma.Structures.VmaStats;
 import com.CIMthetics.jVma.Structures.CreateInfos.VmaAllocationCreateInfo;
@@ -546,7 +551,273 @@ public class VMAFunctions
                 allocationCount,
                 allocations);
     }
-
     
-
+    /**
+     * Tries to resize an allocation in place, if there is enough free memory after it.
+     * <p>
+     * Tries to change allocation's size without moving or reallocating it.
+     * You can both shrink and grow allocation size. When growing, it succeeds 
+     * only when the allocation belongs to a memory block with enough free space
+     * after it.
+     * <p>
+     * After successful call to this method, <code>VmaAllocationInfo.size</code> 
+     * of this allocation changes. All other parameters stay the same: memory 
+     * pool and type, alignment, offset, mapped pointer.
+     * <p>
+     * <ul>
+     * <li>
+     * Calling this function on allocation that is in lost state fails with 
+     * result <code>VK_ERROR_VALIDATION_FAILED_EXT</code>.
+     * </li>
+     * <li>
+     * Calling this function with <code>newSize</code> same as current allocation
+     * size does nothing and returns <code>VK_SUCCESS</code>.
+     * </li>
+     * <li>
+     * Resizing dedicated allocations, as well as allocations created in pools 
+     * that use linear or buddy algorithm, is not supported.
+     * The function returns <code>VK_ERROR_FEATURE_NOT_PRESENT</code> in such cases.
+     * Support may be added in the future.
+     * </li>
+     * </ul>
+     * 
+     * @param allocator
+     * @param allocation
+     * @param newSize
+     * @return
+     * <ul>
+     * <li>
+     * <code>VK_SUCCESS</code> if allocation's size has been successfully changed.
+     * </li>
+     * <li>
+     * <code>VK_ERROR_OUT_OF_POOL_MEMORY</code> if allocation's size could not be changed.
+     * </li>
+     * <li>
+     * <code>VK_ERROR_FEATURE_NOT_PRESENT</code> - see above
+     * </li>
+     * </ul>
+     */
+    public static VkResult vmaResizeAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long newSize)
+    {
+        return jVmaProxyLibrary.vmaResizeAllocation(
+                allocator,
+                allocation,
+                newSize);
+    }
+    
+    public static void vmaGetAllocationInfo(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo)
+    {
+        jVmaProxyLibrary.vmaGetAllocationInfo(
+                allocator,
+                allocation,
+                allocationInfo);
+    }
+    
+    public static boolean vmaTouchAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation)
+    {
+        return jVmaProxyLibrary.vmaTouchAllocation(
+                allocator,
+                allocation);
+    }
+    
+    public static void vmaSetAllocationUserData(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            Object userData)
+    {
+        jVmaProxyLibrary.vmaSetAllocationUserData(
+                allocator,
+                allocation,
+                userData);
+    }
+    
+    public static void vmaCreateLostAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation)
+    {
+        jVmaProxyLibrary.vmaCreateLostAllocation(
+                allocator,
+                allocation);
+    }
+    
+    public static VkResult vmaMapMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            MappedData data)
+    {
+        return jVmaProxyLibrary.vmaMapMemory(
+                allocator,
+                allocation,
+                data);
+    }
+    
+    public static void vmaUnmapMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation)
+    {
+        jVmaProxyLibrary.vmaUnmapMemory(
+                allocator,
+                allocation);
+    }
+    
+    public static void vmaFlushAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long offset,
+            long size)
+    {
+        jVmaProxyLibrary.vmaFlushAllocation(
+                allocator,
+                allocation,
+                offset,
+                size);
+    }
+    
+    public static void vmaInvalidateAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long offset,
+            long size)
+    {
+        jVmaProxyLibrary.vmaInvalidateAllocation(
+                allocator,
+                allocation,
+                offset,
+                size);
+    }
+    
+    public static VkResult vmaCheckCorruption(
+            VmaAllocator allocator,
+            int memoryTypeBits)
+    {
+        return jVmaProxyLibrary.vmaCheckCorruption(
+                allocator,
+                memoryTypeBits);
+    }
+    
+    public static VkResult vmaDefragmentationBegin(
+            VmaAllocator allocator,
+            VmaDefragmentationInfo2 info,
+            VmaDefragmentationStats stats,
+            VmaDefragmentationContext context)
+    {
+        return jVmaProxyLibrary.vmaDefragmentationBegin(
+                allocator,
+                info,
+                stats,
+                context);
+    }
+    
+    public static VkResult vmaDefragmentationEnd(
+            VmaAllocator allocator,
+            VmaDefragmentationContext context)
+    {
+        return jVmaProxyLibrary.vmaDefragmentationEnd(
+                allocator,
+                context);
+    }
+    
+    public static VkResult vmaDefragment(
+            VmaAllocator allocator,
+            VmaAllocation[] allocations,
+            long allocationCount,
+            boolean[] allocationsChanged,
+            VmaDefragmentationInfo defragmentationInfo,
+            VmaDefragmentationStats defragmentationStats)
+    {
+        return jVmaProxyLibrary.vmaDefragment(
+                allocator,
+                allocations,
+                allocationCount,
+                allocationsChanged,
+                defragmentationInfo,
+                defragmentationStats);
+    }
+    
+    public static VkResult vmaBindBufferMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            VkBuffer buffer)
+    {
+        return jVmaProxyLibrary.vmaBindBufferMemory(
+                allocator,
+                allocation,
+                buffer);
+    }
+    
+    public static VkResult vmaBindImageMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            VkImage image)
+    {
+        return jVmaProxyLibrary.vmaBindImageMemory(
+                allocator,
+                allocation,
+                image);
+    }
+    
+    public static VkResult vmaCreateBuffer(
+            VmaAllocator allocator,
+            VkBufferCreateInfo bufferCreateInfo,
+            VmaAllocationCreateInfo allocationCreateInfo,
+            VkBuffer buffer,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo)
+    {
+        return jVmaProxyLibrary.vmaCreateBuffer(
+                allocator,
+                bufferCreateInfo,
+                allocationCreateInfo,
+                buffer,
+                allocation,
+                allocationInfo);
+    }
+    
+    public static void vmaDestroyBuffer(
+            VmaAllocator allocator,
+            VkBuffer buffer,
+            VmaAllocation allocation)
+    {
+        jVmaProxyLibrary.vmaDestroyBuffer(
+                allocator,
+                buffer,
+                allocation);
+    }
+    
+    public static VkResult vmaCreateImage(
+            VmaAllocator allocator,
+            VkImageCreateInfo imageCreateInfo,
+            VmaAllocationCreateInfo allocationCreateInfo,
+            VkImage image,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo)
+    {
+        return jVmaProxyLibrary.vmaCreateImage(
+                allocator,
+                imageCreateInfo,
+                allocationCreateInfo,
+                image,
+                allocation,
+                allocationInfo);
+    }
+    
+    public static void vmaDestroyImage(
+            VmaAllocator allocator,
+            VkImage image,
+            VmaAllocation allocation)
+    {
+        jVmaProxyLibrary.vmaDestroyImage(
+                allocator,
+                image,
+                allocation);
+    }
+    
 }

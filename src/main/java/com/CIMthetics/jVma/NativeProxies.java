@@ -2,10 +2,15 @@ package com.CIMthetics.jVma;
 
 import java.util.EnumSet;
 
+import com.CIMthetics.jVma.Handles.MappedData;
 import com.CIMthetics.jVma.Handles.VmaAllocation;
 import com.CIMthetics.jVma.Handles.VmaAllocator;
+import com.CIMthetics.jVma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jVma.Handles.VmaPool;
 import com.CIMthetics.jVma.Structures.VmaAllocationInfo;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationInfo;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationInfo2;
+import com.CIMthetics.jVma.Structures.VmaDefragmentationStats;
 import com.CIMthetics.jVma.Structures.VmaPoolStats;
 import com.CIMthetics.jVma.Structures.VmaStats;
 import com.CIMthetics.jVma.Structures.CreateInfos.VmaAllocationCreateInfo;
@@ -52,10 +57,24 @@ class NativeProxies
             VmaAllocation allocations,
             VmaAllocationInfo allocationInfo);
     
+    native VkResult vmaBindBufferMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            VkBuffer buffer);
+    
+    native VkResult vmaBindImageMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            VkImage image);
+    
     native void vmaBuildStatsString(
             VmaAllocator allocator,
             String statsString,
             boolean detailedMap);
+    
+    native VkResult vmaCheckCorruption(
+            VmaAllocator allocator,
+            int memoryTypeBits);
     
     native VkResult vmaCheckPoolCorruption(
             VmaAllocator allocator,
@@ -64,6 +83,26 @@ class NativeProxies
     native VkResult vmaCreateAllocator(
             VmaAllocatorCreateInfo createInfo,
             VmaAllocator allocator);
+    
+    native VkResult vmaCreateBuffer(
+            VmaAllocator allocator,
+            VkBufferCreateInfo bufferCreateInfo,
+            VmaAllocationCreateInfo allocationCreateInfo,
+            VkBuffer buffer,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo);
+    
+    native VkResult vmaCreateImage(
+            VmaAllocator allocator,
+            VkImageCreateInfo imageCreateInfo,
+            VmaAllocationCreateInfo allocationCreateInfo,
+            VkImage image,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo);
+    
+    native void vmaCreateLostAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation);
     
     native VkResult vmaCreatePool(
             VmaAllocator allocator,
@@ -74,8 +113,36 @@ class NativeProxies
             VmaAllocator allocator,
             VmaStats stats);
     
+    native VkResult vmaDefragment(
+            VmaAllocator allocator,
+            VmaAllocation[] allocations,
+            long allocationCount,
+            boolean[] allocationsChanged,
+            VmaDefragmentationInfo defragmentationInfo,
+            VmaDefragmentationStats defragmentationStats);
+    
+    native VkResult vmaDefragmentationBegin(
+            VmaAllocator allocator,
+            VmaDefragmentationInfo2 info,
+            VmaDefragmentationStats stats,
+            VmaDefragmentationContext context);
+    
+    native VkResult vmaDefragmentationEnd(
+            VmaAllocator allocator,
+            VmaDefragmentationContext context);
+    
     native void vmaDestroyAllocator(
             VmaAllocator allocator);
+    
+    native void vmaDestroyBuffer(
+            VmaAllocator allocator,
+            VkBuffer buffer,
+            VmaAllocation allocation);
+    
+    native void vmaDestroyImage(
+            VmaAllocator allocator,
+            VkImage image,
+            VmaAllocation allocation);
     
     native void vmaDestroyPool(
             VmaAllocator allocator,
@@ -99,6 +166,12 @@ class NativeProxies
             VmaAllocationCreateInfo allocationCreateInfo,
             Integer memoryTypeIndex);
     
+    native void vmaFlushAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long offset,
+            long size);
+    
     native void vmaFreeMemory(
             VmaAllocator allocator,
             VmaAllocation allocation);
@@ -108,15 +181,10 @@ class NativeProxies
             long allocationCount,
             VmaAllocation allocations);
     
-    native void vmaMakePoolAllocationsLost(
+    native void vmaGetAllocationInfo(
             VmaAllocator allocator,
-            VmaPool pool,
-            Long lostAllocationCount);
-    
-    native void vmaGetPoolStats(
-            VmaAllocator allocator,
-            VmaPool pool,
-            VmaPoolStats poolStats);
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo);
     
     native void vmaGetMemoryProperties(
             VmaAllocator allocator,
@@ -131,8 +199,49 @@ class NativeProxies
             VmaAllocator allocator,
             VkPhysicalDeviceProperties physicalDeviceProperties);
     
+    native void vmaGetPoolStats(
+            VmaAllocator allocator,
+            VmaPool pool,
+            VmaPoolStats poolStats);
+    
+    native void vmaInvalidateAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long offset,
+            long size);
+    
+    native void vmaMakePoolAllocationsLost(
+            VmaAllocator allocator,
+            VmaPool pool,
+            Long lostAllocationCount);
+    
+    native VkResult vmaMapMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            MappedData data);
+    
+    native VkResult vmaResizeAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            long newSize);
+    
+    native void vmaSetAllocationUserData(
+            VmaAllocator allocator,
+            VmaAllocation allocation,
+            Object userData);
+    
     native void vmaSetCurrentFrameIndex(
             VmaAllocator allocator,
             int frameIndex);
+    
+    native boolean vmaTouchAllocation(
+            VmaAllocator allocator,
+            VmaAllocation allocation);
+    
+    native void vmaUnmapMemory(
+            VmaAllocator allocator,
+            VmaAllocation allocation);
+    
+
 
 }
