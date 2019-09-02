@@ -25,7 +25,7 @@ public class VmaAllocatorCreateInfo
     long preferredLargeHeapBlockSize;
     /// Custom CPU memory allocation callbacks. Optional.
     /** Optional, can be null. When specified, will also be used for all CPU-side memory allocations. */
-    VkAllocationCallbacks pAllocationCallbacks;
+    VkAllocationCallbacks allocationCallbacks;
     /// Informative callbacks for `vkAllocateMemory`, `vkFreeMemory`. Optional.
     /** Optional, can be null. */
     VmaDeviceMemoryCallbacks deviceMemoryCallbacks;
@@ -67,7 +67,7 @@ public class VmaAllocatorCreateInfo
     blocks to system RAM. This driver behavior can also be controlled using
     VK_AMD_memory_overallocation_behavior extension.
     */
-    long pHeapSizeLimit;
+    long[] heapSizeLimit;
     /** \brief Pointers to Vulkan functions. Can be null if you leave define `VMA_STATIC_VULKAN_FUNCTIONS 1`.
 
     If you leave define `VMA_STATIC_VULKAN_FUNCTIONS 1` in configuration section,
@@ -87,4 +87,104 @@ public class VmaAllocatorCreateInfo
     creation of the allocator object fails with `VK_ERROR_FEATURE_NOT_PRESENT`.
     */
     VmaRecordSettings recordSettings;
+    
+    public EnumSet<VmaAllocatorCreateFlagBits> getFlags()
+    {
+        return flags;
+    }
+    
+    public void setFlags(EnumSet<VmaAllocatorCreateFlagBits> flags)
+    {
+        this.flags = flags;
+    }
+    
+    public VkPhysicalDevice getPhysicalDevice()
+    {
+        return physicalDevice;
+    }
+    
+    public void setPhysicalDevice(VkPhysicalDevice physicalDevice)
+    {
+        this.physicalDevice = physicalDevice;
+    }
+    
+    public VkDevice getDevice()
+    {
+        return device;
+    }
+    
+    public void setDevice(VkDevice device)
+    {
+        this.device = device;
+    }
+    
+    public long getPreferredLargeHeapBlockSize()
+    {
+        return preferredLargeHeapBlockSize;
+    }
+    
+    public void setPreferredLargeHeapBlockSize(long preferredLargeHeapBlockSize)
+    {
+        this.preferredLargeHeapBlockSize = preferredLargeHeapBlockSize;
+    }
+    
+    public VkAllocationCallbacks getAllocationCallbacks()
+    {
+        return allocationCallbacks;
+    }
+    
+    public void setallocationCallbacks(VkAllocationCallbacks allocationCallbacks)
+    {
+        this.allocationCallbacks = allocationCallbacks;
+    }
+    
+    public VmaDeviceMemoryCallbacks getDeviceMemoryCallbacks()
+    {
+        return deviceMemoryCallbacks;
+    }
+    
+    public void setDeviceMemoryCallbacks(VmaDeviceMemoryCallbacks deviceMemoryCallbacks)
+    {
+        this.deviceMemoryCallbacks = deviceMemoryCallbacks;
+    }
+    
+    public int getFrameInUseCount()
+    {
+        return frameInUseCount;
+    }
+    
+    public void setFrameInUseCount(int frameInUseCount)
+    {
+        this.frameInUseCount = frameInUseCount;
+    }
+    
+    public long[] getHeapSizeLimit()
+    {
+        return heapSizeLimit;
+    }
+    
+    void setHeapSizeLimit(long[] heapSizeLimit)
+    {
+        this.heapSizeLimit = heapSizeLimit;
+    }
+    
+    public VmaVulkanFunctions getVulkanFunctions()
+    {
+        return vulkanFunctions;
+    }
+    
+    public void setVulkanFunctions(VmaVulkanFunctions vulkanFunctions)
+    {
+        this.vulkanFunctions = vulkanFunctions;
+    }
+    
+    public VmaRecordSettings getRecordSettings()
+    {
+        return recordSettings;
+    }
+    
+    public void setRecordSettings(VmaRecordSettings recordSettings)
+    {
+        this.recordSettings = recordSettings;
+    }
 }

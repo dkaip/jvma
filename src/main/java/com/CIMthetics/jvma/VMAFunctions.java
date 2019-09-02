@@ -53,7 +53,7 @@ public class VMAFunctions
     }
     
     /**
-     * Create Alocator Object
+     * Create Allocator Object
      * @param createInfo
      * @param allocator
      * @return

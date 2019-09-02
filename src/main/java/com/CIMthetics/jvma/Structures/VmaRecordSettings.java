@@ -15,5 +15,26 @@ public class VmaRecordSettings
     It will be opened for the whole time #VmaAllocator object is alive.
     If opening this file fails, creation of the whole allocator object fails.
     */
-    String pFilePath;
+    String filePath;
+    
+    EnumSet<VmaRecordFlagBits> getFlags()
+    {
+        return flags;
+    }
+    
+    void setFlags(EnumSet<VmaRecordFlagBits> flags)
+    {
+        this.flags = flags;
+    }
+    
+    String getFilePath()
+    {
+        return filePath;
+    }
+    
+    void setFilePath(String filePath)
+    {
+        this.filePath = filePath;
+    }
+    
 }
