@@ -86,16 +86,16 @@ public enum VmaAllocationCreateFlagBits
     */
     VMA_ALLOCATION_CREATE_STRATEGY_FIRST_FIT_BIT(0x00040000),
 
-//    /** Allocation strategy that tries to minimize memory usage.
-//    */
-//    VMA_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT = VMA_ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT,
-//    /** Allocation strategy that tries to minimize allocation time.
-//    */
-//    VMA_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT = VMA_ALLOCATION_CREATE_STRATEGY_FIRST_FIT_BIT,
-//    /** Allocation strategy that tries to minimize memory fragmentation.
-//    */
-//    VMA_ALLOCATION_CREATE_STRATEGY_MIN_FRAGMENTATION_BIT = VMA_ALLOCATION_CREATE_STRATEGY_WORST_FIT_BIT,
-//
+    /** Allocation strategy that tries to minimize memory usage.
+    */
+    VMA_ALLOCATION_CREATE_STRATEGY_MIN_MEMORY_BIT(VMA_ALLOCATION_CREATE_STRATEGY_BEST_FIT_BIT.valueOf()),
+    /** Allocation strategy that tries to minimize allocation time.
+    */
+    VMA_ALLOCATION_CREATE_STRATEGY_MIN_TIME_BIT(VMA_ALLOCATION_CREATE_STRATEGY_FIRST_FIT_BIT.valueOf()),
+    /** Allocation strategy that tries to minimize memory fragmentation.
+    */
+    VMA_ALLOCATION_CREATE_STRATEGY_MIN_FRAGMENTATION_BIT(VMA_ALLOCATION_CREATE_STRATEGY_WORST_FIT_BIT.valueOf()),
+
 //    /** A bit mask to extract only `STRATEGY` bits from entire set of flags.
 //    */
 //    VMA_ALLOCATION_CREATE_STRATEGY_MASK =

@@ -10,6 +10,7 @@ import com.CIMthetics.jvma.Handles.VmaAllocation;
 import com.CIMthetics.jvma.Handles.VmaAllocator;
 import com.CIMthetics.jvma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jvma.Handles.VmaPool;
+import com.CIMthetics.jvma.Structures.StringReturnValue;
 import com.CIMthetics.jvma.Structures.VmaAllocationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo2;
@@ -23,6 +24,7 @@ import com.CIMthetics.jvulkan.VulkanCore.VK11.Enums.VkMemoryPropertyFlagBits;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Enums.VkResult;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Handles.VkBuffer;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Handles.VkImage;
+import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.IntReturnValue;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkMemoryRequirements;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkPhysicalDeviceMemoryProperties;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkPhysicalDeviceProperties;
@@ -162,15 +164,15 @@ public class VMAFunctions
     /**
      * Builds and returns statistics as string in JSON format.
      * <p>
-     * Unlike its non Java counterpart statsString does NOT
+     * Unlike its C++ counterpart statsString does NOT
      * need to be release with <code>vmaFreeStatsString</code>.
      * @param allocator
-     * @param statsString
+     * @param statsString may not be null
      * @param detailedMap
      */
     public static void vmaBuildStatsString(
             VmaAllocator allocator,
-            String statsString,
+            StringReturnValue statsString,
             boolean detailedMap)
     {
         jVmaProxyLibrary.vmaBuildStatsString(
@@ -182,7 +184,8 @@ public class VMAFunctions
     /**
      * In the Java environment this method does not do anything since
      * the String returned from the <code>vmaBuildStatsString</code> method is now a
-     * Java <code>String</code> and will thus be garbage collected.
+     * Java <code>String</code> and will thus be garbage collected at the appropriate
+     * time.
      * <p>
      * This method is here for &quot;compatibility / completeness&quot; reasons.
      * @param allocator
@@ -228,7 +231,7 @@ public class VMAFunctions
             VmaAllocator allocator,
             EnumSet<VkMemoryPropertyFlagBits> memoryTypeBits,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer memoryTypeIndex)
+            IntReturnValue memoryTypeIndex)
     {
         return jVmaProxyLibrary.vmaFindMemoryTypeIndex(
                 allocator,

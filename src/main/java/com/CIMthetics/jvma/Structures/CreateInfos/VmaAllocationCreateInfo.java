@@ -48,4 +48,75 @@ public class VmaAllocationCreateInfo
     internal buffer, so it doesn't need to be valid after allocation call.
     */
     Object pUserData;
+    
+    public EnumSet<VmaAllocationCreateFlagBits> getFlags()
+    {
+        return flags;
+    }
+    
+    public void setFlags(EnumSet<VmaAllocationCreateFlagBits> flags)
+    {
+        this.flags = flags;
+    }
+    
+    public VmaMemoryUsage getUsage()
+    {
+        return usage;
+    }
+    
+    public void setUsage(VmaMemoryUsage usage)
+    {
+        this.usage = usage;
+    }
+    
+    public EnumSet<VkMemoryPropertyFlagBits> getRequiredFlags()
+    {
+        return requiredFlags;
+    }
+    
+    public void setRequiredFlags(EnumSet<VkMemoryPropertyFlagBits> requiredFlags)
+    {
+        this.requiredFlags = requiredFlags;
+    }
+    
+    public EnumSet<VkMemoryPropertyFlagBits> getPreferredFlags()
+    {
+        return preferredFlags;
+    }
+    
+    public void setPreferredFlags(EnumSet<VkMemoryPropertyFlagBits> preferredFlags)
+    {
+        this.preferredFlags = preferredFlags;
+    }
+    
+    public int getMemoryTypeBits()
+    {
+        return memoryTypeBits;
+    }
+    
+    public void setMemoryTypeBits(int memoryTypeBits)
+    {
+        this.memoryTypeBits = memoryTypeBits;
+    }
+    
+    public VmaPool getPool()
+    {
+        return pool;
+    }
+    
+    public void setPool(VmaPool pool)
+    {
+        this.pool = pool;
+    }
+    
+    public Object getpUserData()
+    {
+        return pUserData;
+    }
+    
+    public void setpUserData(Object pUserData)
+    {
+        this.pUserData = pUserData;
+    }
+    
 }

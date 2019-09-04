@@ -7,6 +7,7 @@ import com.CIMthetics.jvma.Handles.VmaAllocation;
 import com.CIMthetics.jvma.Handles.VmaAllocator;
 import com.CIMthetics.jvma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jvma.Handles.VmaPool;
+import com.CIMthetics.jvma.Structures.StringReturnValue;
 import com.CIMthetics.jvma.Structures.VmaAllocationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo2;
@@ -20,6 +21,7 @@ import com.CIMthetics.jvulkan.VulkanCore.VK11.Enums.VkMemoryPropertyFlagBits;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Enums.VkResult;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Handles.VkBuffer;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Handles.VkImage;
+import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.IntReturnValue;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkMemoryRequirements;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkPhysicalDeviceMemoryProperties;
 import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.VkPhysicalDeviceProperties;
@@ -69,7 +71,7 @@ class NativeProxies
     
     native void vmaBuildStatsString(
             VmaAllocator allocator,
-            String statsString,
+            StringReturnValue statsString,
             boolean detailedMap);
     
     native VkResult vmaCheckCorruption(
@@ -152,7 +154,7 @@ class NativeProxies
             VmaAllocator allocator,
             EnumSet<VkMemoryPropertyFlagBits> memoryTypeBits,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer memoryTypeIndex);
+            IntReturnValue memoryTypeIndex);
     
     native VkResult vmaFindMemoryTypeIndexForBufferInfo(
             VmaAllocator allocator,
