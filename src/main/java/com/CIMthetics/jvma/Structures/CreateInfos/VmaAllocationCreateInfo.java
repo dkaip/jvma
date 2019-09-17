@@ -27,12 +27,14 @@ public class VmaAllocationCreateInfo
     Set to 0 if no additional flags are prefered. \n
     If `pool` is not null, this member is ignored. */
     EnumSet<VkMemoryPropertyFlagBits> preferredFlags = EnumSet.noneOf(VkMemoryPropertyFlagBits.class);
-    /** \brief Bitmask containing one bit set for every memory type acceptable for this allocation.
-
-    Value 0 is equivalent to `UINT32_MAX` - it means any memory type is accepted if
-    it meets other requirements specified by this structure, with no further
-    restrictions on memory type index. \n
-    If `pool` is not null, this member is ignored.
+    /**
+     * Bitmask containing one bit set for every memory type acceptable for this allocation.
+     * <p>
+     * A value <code>0</code> is equivalent to all bits set. It means any memory type is accepted if
+     * it meets other requirements specified by this structure, with no further
+     * restrictions on memory type index.
+     * <p>
+     * If <code>pool</code> is not <code>null</code>, this member is ignored.
     */
     int memoryTypeBits;
     /** \brief Pool that this allocation should be created in.

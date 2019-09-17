@@ -1,5 +1,6 @@
 package com.CIMthetics.jvma;
 
+import java.util.Collection;
 import java.util.EnumSet;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import com.CIMthetics.jvma.Handles.VmaAllocation;
 import com.CIMthetics.jvma.Handles.VmaAllocator;
 import com.CIMthetics.jvma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jvma.Handles.VmaPool;
+import com.CIMthetics.jvma.Structures.LongReturnValue;
 import com.CIMthetics.jvma.Structures.StringReturnValue;
 import com.CIMthetics.jvma.Structures.VmaAllocationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo;
@@ -204,7 +206,8 @@ public class VMAFunctions
      * This algorithm tries to find a memory type that:
      * <ul>
      * <li>
-     * Is allowed by memoryTypeBits.
+     * Is allowed by memoryTypeBits. See the documentation for <code>memoryTypeBits</code>
+     * below.
      * </li>
      * <li>
      * Contains all the flags from pAllocationCreateInfo->requiredFlags.
@@ -218,7 +221,16 @@ public class VMAFunctions
      * </ul>
      * <p>
      * @param allocator
-     * @param memoryTypeBits
+     * @param memoryTypeBits Each graphics card will have X number of memory types.
+     * Each of these types will have a varying number of properties associated with
+     * them.  For example, let's say our card has 4 memory types.  You would represent
+     * each type with a bit, i.e. 0x1, 0x2, 0x4, and 0x8.  When calling this method
+     * set the memory type bits of the type(s) you would like to be considered in the
+     * &quot;search&quot; when this method is called.  If you only want the first and
+     * third memory types considered use<code>(0x1 | 0x4)</code> for the value of this 
+     * argument.  If you would like to search all memory types pass either a
+     * <code>0</code> or a <code>-1</code> for the value of this argument.
+     * 
      * @param allocationCreateInfo
      * @param memoryTypeIndex
      * @return Returns <code>VK_ERROR_FEATURE_NOT_PRESENT</code> if not found. Receiving such result
@@ -229,7 +241,7 @@ public class VMAFunctions
      */
     public static VkResult vmaFindMemoryTypeIndex(
             VmaAllocator allocator,
-            EnumSet<VkMemoryPropertyFlagBits> memoryTypeBits,
+            int memoryTypeBits,
             VmaAllocationCreateInfo allocationCreateInfo,
             IntReturnValue memoryTypeIndex)
     {
@@ -251,20 +263,20 @@ public class VMAFunctions
      * @param allocator
      * @param bufferCreateInfo
      * @param allocationCreateInfo
-     * @param pMemoryTypeIndex
+     * @param memoryTypeIndex
      * @return
      */
     public static VkResult vmaFindMemoryTypeIndexForBufferInfo(
             VmaAllocator allocator,
             VkBufferCreateInfo bufferCreateInfo,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer pMemoryTypeIndex)
+            IntReturnValue memoryTypeIndex)
     {
         return jVmaProxyLibrary.vmaFindMemoryTypeIndexForBufferInfo(
                 allocator,
                 bufferCreateInfo,
                 allocationCreateInfo,
-                pMemoryTypeIndex);
+                memoryTypeIndex);
     }
     
     /**
@@ -285,7 +297,7 @@ public class VMAFunctions
             VmaAllocator allocator,
             VkImageCreateInfo imageCreateInfo,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer memoryTypeIndex)
+            IntReturnValue memoryTypeIndex)
     {
         return jVmaProxyLibrary.vmaFindMemoryTypeIndexForImageInfo(
                 allocator,
@@ -357,7 +369,7 @@ public class VMAFunctions
     public static void vmaMakePoolAllocationsLost(
             VmaAllocator allocator,
             VmaPool pool,
-            Long lostAllocationCount)
+            LongReturnValue lostAllocationCount)
     {
         jVmaProxyLibrary.vmaMakePoolAllocationsLost(
                 allocator,
@@ -440,24 +452,21 @@ public class VMAFunctions
      * @param allocator
      * @param vkMemoryRequirements
      * @param createInfo
-     * @param allocationCount
      * @param allocations
      * @param allocationInfo
      * @return
      */
     public static VkResult vmaAllocateMemoryPages(
             VmaAllocator allocator,
-            VkMemoryRequirements vkMemoryRequirements,
-            VmaAllocationCreateInfo createInfo,
-            long allocationCount,
-            VmaAllocation allocations,
-            VmaAllocationInfo allocationInfo)
+            Collection<VkMemoryRequirements> vkMemoryRequirements,
+            Collection<VmaAllocationCreateInfo> createInfo,
+            Collection<VmaAllocation> allocations,
+            Collection<VmaAllocationInfo> allocationInfo)
     {
         return jVmaProxyLibrary.vmaAllocateMemoryPages(
                 allocator,
                 vkMemoryRequirements,
                 createInfo,
-                allocationCount,
                 allocations,
                 allocationInfo);
     }
@@ -541,17 +550,14 @@ public class VMAFunctions
      * array is valid. Such entries are just skipped.
      * <p>
      * @param allocator
-     * @param allocationCount
      * @param allocations
      */
     public static void vmaFreeMemoryPages(
             VmaAllocator allocator,
-            long allocationCount,
-            VmaAllocation allocations)
+            Collection<VmaAllocation> allocations)
     {
         jVmaProxyLibrary.vmaFreeMemoryPages(
                 allocator,
-                allocationCount,
                 allocations);
     }
     

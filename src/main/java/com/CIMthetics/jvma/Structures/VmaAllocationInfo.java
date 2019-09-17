@@ -43,4 +43,84 @@ public class VmaAllocationInfo
     It can change after call to vmaSetAllocationUserData() for this allocation.
     */
     Object userData;
+    
+    public VmaAllocationInfo()
+    {
+    }
+
+    public int getMemoryType()
+    {
+        return memoryType;
+    }
+
+    public void setMemoryType(int memoryType)
+    {
+        this.memoryType = memoryType;
+    }
+
+    public VkDeviceMemory getDeviceMemory()
+    {
+        return deviceMemory;
+    }
+
+    public void setDeviceMemory(VkDeviceMemory deviceMemory)
+    {
+        this.deviceMemory = deviceMemory;
+    }
+
+    public long getOffset()
+    {
+        return offset;
+    }
+
+    public void setOffset(long offset)
+    {
+        this.offset = offset;
+    }
+
+    public long getSize()
+    {
+        return size;
+    }
+
+    public void setSize(long size)
+    {
+        this.size = size;
+    }
+
+    public MappedData getMappedData()
+    {
+        return mappedData;
+    }
+
+    public void setMappedData(MappedData mappedData)
+    {
+        this.mappedData = mappedData;
+    }
+
+    public Object getUserData()
+    {
+        return userData;
+    }
+
+    public void setUserData(Object userData)
+    {
+        this.userData = userData;
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("\nVmaAllocationInfo\n"));
+        
+        sb.append(String.format("    memoryType:%d\n", memoryType));
+        sb.append(String.format("    deviceMemory:%s\n", deviceMemory.toString()));
+        sb.append(String.format("    offset:%d\n", offset));
+        sb.append(String.format("    size:%d\n", size));
+        sb.append(String.format("    mappedData:%s\n", mappedData.toString()));
+        sb.append(String.format("    userData:%s\n", userData == null ? "null" : userData.toString()));
+        
+        return sb.toString();
+    }
 }

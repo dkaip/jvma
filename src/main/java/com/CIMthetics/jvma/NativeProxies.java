@@ -1,5 +1,6 @@
 package com.CIMthetics.jvma;
 
+import java.util.Collection;
 import java.util.EnumSet;
 
 import com.CIMthetics.jvma.Handles.MappedData;
@@ -7,6 +8,7 @@ import com.CIMthetics.jvma.Handles.VmaAllocation;
 import com.CIMthetics.jvma.Handles.VmaAllocator;
 import com.CIMthetics.jvma.Handles.VmaDefragmentationContext;
 import com.CIMthetics.jvma.Handles.VmaPool;
+import com.CIMthetics.jvma.Structures.LongReturnValue;
 import com.CIMthetics.jvma.Structures.StringReturnValue;
 import com.CIMthetics.jvma.Structures.VmaAllocationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo;
@@ -30,6 +32,13 @@ import com.CIMthetics.jvulkan.VulkanCore.VK11.Structures.CreateInfos.VkImageCrea
 
 class NativeProxies
 {
+    native VkResult vmaAllocateMemory(
+            VmaAllocator allocator,
+            VkMemoryRequirements vkMemoryRequirements,
+            VmaAllocationCreateInfo createInfo,
+            VmaAllocation allocation,
+            VmaAllocationInfo allocationInfo);
+    
     native VkResult vmaAllocateMemoryForBuffer(
             VmaAllocator allocator,
             VkBuffer buffer,
@@ -44,20 +53,12 @@ class NativeProxies
             VmaAllocation allocation,
             VmaAllocationInfo allocationInfo);
     
-    native VkResult vmaAllocateMemory(
-            VmaAllocator allocator,
-            VkMemoryRequirements vkMemoryRequirements,
-            VmaAllocationCreateInfo createInfo,
-            VmaAllocation allocation,
-            VmaAllocationInfo allocationInfo);
-    
     native VkResult vmaAllocateMemoryPages(
             VmaAllocator allocator,
-            VkMemoryRequirements vkMemoryRequirements,
-            VmaAllocationCreateInfo createInfo,
-            long allocationCount,
-            VmaAllocation allocations,
-            VmaAllocationInfo allocationInfo);
+            Collection<VkMemoryRequirements> vkMemoryRequirements,
+            Collection<VmaAllocationCreateInfo> createInfo,
+            Collection<VmaAllocation> allocations,
+            Collection<VmaAllocationInfo> allocationInfo);
     
     native VkResult vmaBindBufferMemory(
             VmaAllocator allocator,
@@ -73,6 +74,10 @@ class NativeProxies
             VmaAllocator allocator,
             StringReturnValue statsString,
             boolean detailedMap);
+    
+    native void vmaCalculateStats(
+            VmaAllocator allocator,
+            VmaStats stats);
     
     native VkResult vmaCheckCorruption(
             VmaAllocator allocator,
@@ -111,10 +116,6 @@ class NativeProxies
             VmaPoolCreateInfo createInfo,
             VmaPool pool);
     
-    native void vmaCalculateStats(
-            VmaAllocator allocator,
-            VmaStats stats);
-    
     native VkResult vmaDefragment(
             VmaAllocator allocator,
             VmaAllocation[] allocations,
@@ -152,7 +153,7 @@ class NativeProxies
     
     native VkResult vmaFindMemoryTypeIndex(
             VmaAllocator allocator,
-            EnumSet<VkMemoryPropertyFlagBits> memoryTypeBits,
+            int memoryTypeBits,
             VmaAllocationCreateInfo allocationCreateInfo,
             IntReturnValue memoryTypeIndex);
     
@@ -160,13 +161,13 @@ class NativeProxies
             VmaAllocator allocator,
             VkBufferCreateInfo bufferCreateInfo,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer pMemoryTypeIndex);
+            IntReturnValue pMemoryTypeIndex);
     
     native VkResult vmaFindMemoryTypeIndexForImageInfo(
             VmaAllocator allocator,
             VkImageCreateInfo imageCreateInfo,
             VmaAllocationCreateInfo allocationCreateInfo,
-            Integer memoryTypeIndex);
+            IntReturnValue memoryTypeIndex);
     
     native void vmaFlushAllocation(
             VmaAllocator allocator,
@@ -180,8 +181,7 @@ class NativeProxies
     
     native void vmaFreeMemoryPages(
             VmaAllocator allocator,
-            long allocationCount,
-            VmaAllocation allocations);
+            Collection<VmaAllocation> allocations);
     
     native void vmaGetAllocationInfo(
             VmaAllocator allocator,
@@ -215,7 +215,7 @@ class NativeProxies
     native void vmaMakePoolAllocationsLost(
             VmaAllocator allocator,
             VmaPool pool,
-            Long lostAllocationCount);
+            LongReturnValue lostAllocationCount);
     
     native VkResult vmaMapMemory(
             VmaAllocator allocator,

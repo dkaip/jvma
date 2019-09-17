@@ -48,4 +48,68 @@ public class VmaPoolCreateInfo
     become lost, set this value to 0.
     */
     int frameInUseCount;
+    
+    public VmaPoolCreateInfo()
+    {
+    }
+
+    public int getMemoryTypeIndex()
+    {
+        return memoryTypeIndex;
+    }
+
+    public void setMemoryTypeIndex(int memoryTypeIndex)
+    {
+        this.memoryTypeIndex = memoryTypeIndex;
+    }
+
+    public EnumSet<VmaPoolCreateFlagBits> getFlags()
+    {
+        return flags;
+    }
+
+    public void setFlags(EnumSet<VmaPoolCreateFlagBits> flags)
+    {
+        this.flags = flags;
+    }
+
+    public long getBlockSize()
+    {
+        return blockSize;
+    }
+
+    public void setBlockSize(long blockSize)
+    {
+        this.blockSize = blockSize;
+    }
+
+    public long getMinBlockCount()
+    {
+        return minBlockCount;
+    }
+
+    public void setMinBlockCount(long minBlockCount)
+    {
+        this.minBlockCount = minBlockCount;
+    }
+
+    public long getMaxBlockCount()
+    {
+        return maxBlockCount;
+    }
+
+    public void setMaxBlockCount(long maxBlockCount)
+    {
+        this.maxBlockCount = maxBlockCount;
+    }
+
+    public int getFrameInUseCount()
+    {
+        return frameInUseCount;
+    }
+
+    public void setFrameInUseCount(int frameInUseCount)
+    {
+        this.frameInUseCount = frameInUseCount;
+    }
 }

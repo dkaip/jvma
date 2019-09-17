@@ -24,4 +24,84 @@ public class VmaPoolStats
     /** \brief Number of `VkDeviceMemory` blocks allocated for this pool.
     */
     long blockCount;
+    
+    public VmaPoolStats()
+    {
+        
+    }
+
+    public long getSize()
+    {
+        return size;
+    }
+
+    public void setSize(long size)
+    {
+        this.size = size;
+    }
+
+    public long getUnusedSize()
+    {
+        return unusedSize;
+    }
+
+    public void setUnusedSize(long unusedSize)
+    {
+        this.unusedSize = unusedSize;
+    }
+
+    public long getAllocationCount()
+    {
+        return allocationCount;
+    }
+
+    public void setAllocationCount(long allocationCount)
+    {
+        this.allocationCount = allocationCount;
+    }
+
+    public long getUnusedRangeCount()
+    {
+        return unusedRangeCount;
+    }
+
+    public void setUnusedRangeCount(long unusedRangeCount)
+    {
+        this.unusedRangeCount = unusedRangeCount;
+    }
+
+    public long getUnusedRangeSizeMax()
+    {
+        return unusedRangeSizeMax;
+    }
+
+    public void setUnusedRangeSizeMax(long unusedRangeSizeMax)
+    {
+        this.unusedRangeSizeMax = unusedRangeSizeMax;
+    }
+
+    public long getBlockCount()
+    {
+        return blockCount;
+    }
+
+    public void setBlockCount(long blockCount)
+    {
+        this.blockCount = blockCount;
+    }
+    
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("\nVmaPoolStats\n"));
+        sb.append(String.format("    size:%d\n", size));
+        sb.append(String.format("    unusedSize:%d\n", unusedSize));
+        sb.append(String.format("    allocationCount:%d\n", allocationCount));
+        sb.append(String.format("    unusedRangeCount:%d\n", unusedRangeCount));
+        sb.append(String.format("    unusedRangeSizeMax:%d\n", unusedRangeSizeMax));
+        sb.append(String.format("    blockCount:%d\n", blockCount));
+        
+        return sb.toString();
+    }
 }

@@ -25,18 +25,19 @@ public enum VmaAllocationCreateFlagBits
     
     If VmaAllocationCreateInfo::pool is not null, this flag is implied and ignored. */
     VMA_ALLOCATION_CREATE_NEVER_ALLOCATE_BIT(0x00000002),
-    /** \brief Set this flag to use a memory that will be persistently mapped and retrieve pointer to it.
-    
-    Pointer to mapped memory will be returned through VmaAllocationInfo::pMappedData.
-
-    Is it valid to use this flag for allocation made from memory type that is not
-    `HOST_VISIBLE`. This flag is then ignored and memory is not mapped. This is
-    useful if you need an allocation that is efficient to use on GPU
-    (`DEVICE_LOCAL`) and still want to map it directly if possible on platforms that
-    support it (e.g. Intel GPU).
-
-    You should not use this flag together with #VMA_ALLOCATION_CREATE_CAN_BECOME_LOST_BIT.
-    */
+    /**
+     * Set this flag to use a memory that will be persistently mapped and retrieve pointer to it.
+     * <p>
+     * The pointer to mapped memory will be returned through <code>VmaAllocationInfo::pMappedData</code>.
+     * <p>
+     * Is it valid to use this flag for allocation made from memory type that is <b>not</b>
+     * `HOST_VISIBLE`. This flag is then ignored and memory is not mapped. This is
+     * useful if you need an allocation that is efficient to use on GPU
+     * (`DEVICE_LOCAL`) and still want to map it directly if possible on platforms 
+     * that support it (e.g. Intel GPU).
+     * <p>
+     *  You should not use this flag together with #VMA_ALLOCATION_CREATE_CAN_BECOME_LOST_BIT.
+     */
     VMA_ALLOCATION_CREATE_MAPPED_BIT(0x00000004),
     /** Allocation created with this flag can become lost as a result of another
     allocation with #VMA_ALLOCATION_CREATE_CAN_MAKE_OTHER_LOST_BIT flag, so you
