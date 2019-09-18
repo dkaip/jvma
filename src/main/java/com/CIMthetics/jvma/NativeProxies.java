@@ -116,14 +116,14 @@ class NativeProxies
             VmaPoolCreateInfo createInfo,
             VmaPool pool);
     
-    native VkResult vmaDefragment(
-            VmaAllocator allocator,
-            VmaAllocation[] allocations,
-            long allocationCount,
-            boolean[] allocationsChanged,
-            VmaDefragmentationInfo defragmentationInfo,
-            VmaDefragmentationStats defragmentationStats);
-    
+//    native VkResult vmaDefragment(
+//            VmaAllocator allocator,
+//            VmaAllocation[] allocations,
+//            long allocationCount,
+//            boolean[] allocationsChanged,
+//            VmaDefragmentationInfo defragmentationInfo,
+//            VmaDefragmentationStats defragmentationStats);
+//    
     native VkResult vmaDefragmentationBegin(
             VmaAllocator allocator,
             VmaDefragmentationInfo2 info,

@@ -734,23 +734,23 @@ public class VMAFunctions
                 context);
     }
     
-    public static VkResult vmaDefragment(
-            VmaAllocator allocator,
-            VmaAllocation[] allocations,
-            long allocationCount,
-            boolean[] allocationsChanged,
-            VmaDefragmentationInfo defragmentationInfo,
-            VmaDefragmentationStats defragmentationStats)
-    {
-        return jVmaProxyLibrary.vmaDefragment(
-                allocator,
-                allocations,
-                allocationCount,
-                allocationsChanged,
-                defragmentationInfo,
-                defragmentationStats);
-    }
-    
+//    public static VkResult vmaDefragment(
+//            VmaAllocator allocator,
+//            VmaAllocation[] allocations,
+//            long allocationCount,
+//            boolean[] allocationsChanged,
+//            VmaDefragmentationInfo defragmentationInfo,
+//            VmaDefragmentationStats defragmentationStats)
+//    {
+//        return jVmaProxyLibrary.vmaDefragment(
+//                allocator,
+//                allocations,
+//                allocationCount,
+//                allocationsChanged,
+//                defragmentationInfo,
+//                defragmentationStats);
+//    }
+//    
     public static VkResult vmaBindBufferMemory(
             VmaAllocator allocator,
             VmaAllocation allocation,
