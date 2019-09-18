@@ -14,7 +14,6 @@ import com.CIMthetics.jvma.Handles.VmaPool;
 import com.CIMthetics.jvma.Structures.LongReturnValue;
 import com.CIMthetics.jvma.Structures.StringReturnValue;
 import com.CIMthetics.jvma.Structures.VmaAllocationInfo;
-import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationInfo2;
 import com.CIMthetics.jvma.Structures.VmaDefragmentationStats;
 import com.CIMthetics.jvma.Structures.VmaPoolStats;
