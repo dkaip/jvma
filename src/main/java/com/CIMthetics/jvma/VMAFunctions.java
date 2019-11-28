@@ -66,6 +66,7 @@ public class VMAFunctions
 
         log.trace("Attempting to load native library:{}{}", VMAFunctions.pathToNativeLibrary, VMAFunctions.nativeLibraryName);
         System.load(VMAFunctions.pathToNativeLibrary + VMAFunctions.nativeLibraryName);
+        log.trace("Loaded native library:{}{}", VMAFunctions.pathToNativeLibrary, VMAFunctions.nativeLibraryName);
 
         jVmaProxyLibrary = new NativeProxies();
     }
